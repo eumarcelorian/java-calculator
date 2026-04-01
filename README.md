@@ -12,6 +12,7 @@ A simple calculator built in Java to practice programming fundamentals.
 ## Technologies
 - Java
 - Swing
+- AWT
 
 ## How to run
 1. Clone the repository
