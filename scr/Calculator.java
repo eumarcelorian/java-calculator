@@ -29,22 +29,31 @@ public class Calculator {
         int y = 100;
 
         for (int row = 0; row < 3; row++) {
-            int x = 30;
+            // Este for percorre as linhas da calculadora: primeira, segunda e terceira linha de botões
+
+            int x = 30; // Pega o número correspondente à posição atual da matriz
 
             for (int col = 0; col < 3; col++) {
-                int number = numbers[row][col];
+                // Este for percorre os botões da linha atual, da esquerda para a direita
 
-                buttons[number].setBounds(x, y, 50, 50);
-                frame.add(buttons[number]);
+                int number = numbers[row][col]; // Pega o número correspondente à posição atual da matriz
 
-                x += 60;
+                buttons[number].setBounds(x, y, 50, 50); // Define a posição e o tamanho do botão
+                frame.add(buttons[number]); // Adiciona o botão na janela
+
+                x += 60; // Move a próxima posição para a direita
             }
 
-            y += 60;
+            y += 60; // Move para a próxima linha de botões
         }
 
         buttons[0].setBounds(90, 280, 50, 50);
         frame.add(buttons[0]);
+
+        for (int i = 0; i <= 9; i++) {
+            int number = i;
+            buttons[i].addActionListener(e -> display.setText(display.getText() + number));
+        }
 
         frame.setVisible(true);
     }
