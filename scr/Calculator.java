@@ -15,6 +15,8 @@ public class Calculator {
         frame.add(display);
 
         JButton[] buttons = new JButton[10];
+        JButton clearButton = new JButton("C");
+        JButton equalButton = new JButton("=");
 
         for (int i = 0; i <= 9; i++) {
             buttons[i] = new JButton(String.valueOf(i));
@@ -54,6 +56,13 @@ public class Calculator {
             int number = i;
             buttons[i].addActionListener(e -> display.setText(display.getText() + number));
         }
+
+        clearButton.setBounds(30, 280, 50, 50);
+        clearButton.addActionListener(e -> display.setText(""));
+        frame.add(clearButton);
+
+        equalButton.setBounds(150, 280, 50, 50);
+        frame.add(equalButton);
 
         frame.setVisible(true);
     }
