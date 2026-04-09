@@ -3,8 +3,18 @@ import java.awt.*;
 
 public class Calculator {
     public static void main(String[] args) {
+
         JFrame frame = new JFrame("Calculator"); // Cria a janela
+//        ImageIcon icon = new ImageIcon(Calculator.class.getResource("/icon_cal.png"));
+//        frame.setIconImage(icon.getImage());
         JTextField display = new JTextField(); // Cria o visor
+        JButton[] buttons = new JButton[10];
+        JButton clearButton = new JButton("C");
+        JButton equalButton = new JButton("=");
+        JButton multButton = new JButton("*");
+        JButton divideButton = new JButton("/");
+        JButton plusButton = new JButton("+");
+        JButton minusButton = new JButton("-");
 
         frame.setSize(300, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha o programa ao fechar a janela
@@ -13,10 +23,6 @@ public class Calculator {
         display.setBounds(30, 30, 220, 40); // Posição e tamanho do visor
         display.setEditable(false); // Impede digitação direta
         frame.add(display);
-
-        JButton[] buttons = new JButton[10];
-        JButton clearButton = new JButton("C");
-        JButton equalButton = new JButton("=");
 
         for (int i = 0; i <= 9; i++) {
             buttons[i] = new JButton(String.valueOf(i));
@@ -63,6 +69,19 @@ public class Calculator {
 
         equalButton.setBounds(150, 280, 50, 50);
         frame.add(equalButton);
+
+        divideButton.setBounds(210, 100, 50, 50);
+        frame.add(divideButton);
+
+        multButton.setBounds(210, 160, 50, 50);
+        frame.add(multButton);
+
+        minusButton.setBounds(210, 220, 50, 50);
+        frame.add(minusButton);
+
+        plusButton.setBounds(210, 280, 50, 50);
+        frame.add(plusButton);
+
 
         frame.setVisible(true);
     }
