@@ -5,8 +5,6 @@ public class Calculator {
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Calculator"); // Cria a janela
-//        ImageIcon icon = new ImageIcon(Calculator.class.getResource("/icon_cal.png"));
-//        frame.setIconImage(icon.getImage());
         JTextField display = new JTextField(); // Cria o visor
         JButton[] buttons = new JButton[10];
         JButton clearButton = new JButton("C");
@@ -15,6 +13,11 @@ public class Calculator {
         JButton divideButton = new JButton("/");
         JButton plusButton = new JButton("+");
         JButton minusButton = new JButton("-");
+
+        double[] firstNumber = {0};
+        double[] secondNumber = {0};
+        String[] operator = {""};
+        boolean[] startNewNumber = {false};
 
         frame.setSize(300, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha o programa ao fechar a janela
@@ -60,7 +63,15 @@ public class Calculator {
 
         for (int i = 0; i <= 9; i++) {
             int number = i;
-            buttons[i].addActionListener(e -> display.setText(display.getText() + number));
+
+            buttons[i].addActionListener(e -> {
+                if (startNewNumber[0]){
+                    display.setText(String.valueOf(number));
+                    startNewNumber[0] = false; // Zera o visor para entrar o novo número
+                } else {
+                    display.setText(display.getText() + number); // Continua concatenando
+                }
+            });
         }
 
         clearButton.setBounds(30, 280, 50, 50);
