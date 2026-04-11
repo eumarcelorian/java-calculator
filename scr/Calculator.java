@@ -79,6 +79,28 @@ public class Calculator {
         frame.add(clearButton);
 
         equalButton.setBounds(150, 280, 50, 50);
+        equalButton.addActionListener(e -> {
+            secondNumber[0] = Double.parseDouble(display.getText());
+            double result = 0;
+
+            if (operator[0].equals("+")) {
+                result = firstNumber[0] + secondNumber[0];
+            } else if (operator[0].equals("-")) {
+                result = firstNumber[0] - secondNumber[0];
+            } else if (operator[0].equals("*")) {
+                result = firstNumber[0] * secondNumber[0];
+            } else if (operator[0].equals("/")) {
+                result = firstNumber[0] / secondNumber[0];
+            }
+
+            if(result == (int) result) {
+                display.setText(String.valueOf((int) result));
+            } else {
+                display.setText(String.valueOf(result));
+            }
+
+            startNewNumber[0] = true;
+        });
         frame.add(equalButton);
 
         divideButton.setBounds(210, 100, 50, 50);
@@ -91,8 +113,12 @@ public class Calculator {
         frame.add(minusButton);
 
         plusButton.setBounds(210, 280, 50, 50);
+        plusButton.addActionListener(e -> {
+                firstNumber[0] = Double.parseDouble(display.getText());
+                operator[0] = "+";
+                startNewNumber[0] = true;
+        });
         frame.add(plusButton);
-
 
         frame.setVisible(true);
     }
