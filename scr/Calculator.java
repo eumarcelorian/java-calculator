@@ -104,12 +104,27 @@ public class Calculator {
         frame.add(equalButton);
 
         divideButton.setBounds(210, 100, 50, 50);
+        divideButton.addActionListener(e -> {
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "/";
+            startNewNumber[0] = true;
+        });
         frame.add(divideButton);
 
         multButton.setBounds(210, 160, 50, 50);
+        multButton.addActionListener(e -> {
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "*";
+            startNewNumber[0] = true;
+        });
         frame.add(multButton);
 
         minusButton.setBounds(210, 220, 50, 50);
+        minusButton.addActionListener(e -> {
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "-";
+            startNewNumber[0] = true;
+        });
         frame.add(minusButton);
 
         plusButton.setBounds(210, 280, 50, 50);
