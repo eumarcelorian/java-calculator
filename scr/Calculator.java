@@ -14,6 +14,16 @@ public class Calculator {
         JButton plusButton = new JButton("+");
         JButton minusButton = new JButton("-");
 
+        Color defautColor = UIManager.getColor("Button.background");
+        Color activeColor = new Color(180, 220, 255);
+
+        JButton[] = operatorButtons = {divideButton, multButton, minusButton, plusButton};
+
+        for (JButton button : operatorButtons) {
+            button.setOpaque(true);
+            button.setBorderPainted(true);
+        }
+
         double[] firstNumber = {0};
         double[] secondNumber = {0};
         String[] operator = {""};
@@ -81,6 +91,10 @@ public class Calculator {
             secondNumber[0] = 0;
             operator[0] = "";
             startNewNumber[0] = false;
+
+            for (JButton button : operatorButtons) {
+                button.setBackground(defaultColor);
+            }
         });
         frame.add(clearButton);
 
@@ -106,11 +120,21 @@ public class Calculator {
             }
 
             startNewNumber[0] = true;
+
+            for (JButton button : operatorButtons) {
+
+                button.setBackground(defaultColor);
         });
         frame.add(equalButton);
 
         divideButton.setBounds(210, 100, 50, 50);
         divideButton.addActionListener(e -> {
+            for (JuButton button : operatorButtons) {
+                button.setBackground(defautColor);
+            }
+
+            divideButton.setBackground(activeColor);
+
             firstNumber[0] = Double.parseDouble(display.getText());
             operator[0] = "/";
             startNewNumber[0] = true;
@@ -119,6 +143,12 @@ public class Calculator {
 
         multButton.setBounds(210, 160, 50, 50);
         multButton.addActionListener(e -> {
+            for (JuButton button : operatorButtons) {
+                button.setBackground(defautColor);
+            }
+
+            multButton.setBackground(activeColor);
+
             firstNumber[0] = Double.parseDouble(display.getText());
             operator[0] = "*";
             startNewNumber[0] = true;
@@ -127,6 +157,12 @@ public class Calculator {
 
         minusButton.setBounds(210, 220, 50, 50);
         minusButton.addActionListener(e -> {
+            for (JuButton button : operatorButtons) {
+                button.setBackground(defautColor);
+            }
+
+            minusButton.setBackground(activeColor);
+
             firstNumber[0] = Double.parseDouble(display.getText());
             operator[0] = "-";
             startNewNumber[0] = true;
@@ -135,9 +171,15 @@ public class Calculator {
 
         plusButton.setBounds(210, 280, 50, 50);
         plusButton.addActionListener(e -> {
-                firstNumber[0] = Double.parseDouble(display.getText());
-                operator[0] = "+";
-                startNewNumber[0] = true;
+            for (JuButton button : operatorButtons) {
+                button.setBackground(defautColor);
+            }
+
+            plusButton.setBackground(activeColor);
+
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "+";
+            startNewNumber[0] = true;
         });
         frame.add(plusButton);
 
