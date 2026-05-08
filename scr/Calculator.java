@@ -75,7 +75,13 @@ public class Calculator {
         }
 
         clearButton.setBounds(30, 280, 50, 50);
-        clearButton.addActionListener(e -> display.setText(""));
+        clearButton.addActionListener(e -> {
+            display.setText("");
+            firstNumber[0] = 0;
+            secondNumber[0] = 0;
+            operator[0] = "";
+            startNewNumber[0] = false;
+        });
         frame.add(clearButton);
 
         equalButton.setBounds(150, 280, 50, 50);
