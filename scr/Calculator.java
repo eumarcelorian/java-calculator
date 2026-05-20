@@ -100,121 +100,121 @@ public class Calculator {
 
         equalButton.setBounds(150, 280, 50, 50);
         equalButton.addActionListener(e -> {
-                if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                    return;
-                }
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                return;
+            }
 
-                secondNumber[0] = Double.parseDouble(display.getText());
-                double result = 0;
+            secondNumber[0] = Double.parseDouble(display.getText());
+            double result = 0;
 
-                if (operator[0].equals("+")) {
-                    result = firstNumber[0] + secondNumber[0];
-                } else if (operator[0].equals("-")) {
-                    result = firstNumber[0] - secondNumber[0];
-                } else if (operator[0].equals("*")) {
-                    result = firstNumber[0] * secondNumber[0];
-                } else if (operator[0].equals("/")) {
-                    if (secondNumber[0] == 0) {
-                        display.setText("Error");
-                        startNewNumber[0] = true;
+            if (operator[0].equals("+")) {
+                result = firstNumber[0] + secondNumber[0];
+            } else if (operator[0].equals("-")) {
+                result = firstNumber[0] - secondNumber[0];
+            } else if (operator[0].equals("*")) {
+                result = firstNumber[0] * secondNumber[0];
+            } else if (operator[0].equals("/")) {
+                if (secondNumber[0] == 0) {
+                    display.setText("Error");
+                    startNewNumber[0] = true;
 
-                        for (JButton button : operatorButtons) {
-                            button.setBackground(defaultColor);
-                        }
-
-                        return;
+                    for (JButton button : operatorButtons) {
+                        button.setBackground(defaultColor);
                     }
 
-                    result = firstNumber[0] * secondNumber[0];
-                }
-
-                if (result == (int) result) {
-                    display.setText(String.valueOf((int) result));
-                } else {
-                    display.setText(String.valueOf(result));
-                }
-
-                startNewNumber[0] = true;
-
-                for (JButton button : operatorButtons) {
-                    button.setBackground(defaultColor);
-                }
-
-            });
-            frame.add(equalButton);
-
-            divideButton.setBounds(210, 100, 50, 50);
-            divideButton.addActionListener(e -> {
-                if (display.getText().isEmpty() || display.getText().equals("Error")) {
                     return;
                 }
 
-                for (JButton button : operatorButtons) {
-                    button.setBackground(defaultColor);
-                }
+                result = firstNumber[0] / secondNumber[0];
+            }
 
-                divideButton.setBackground(activeColor);
+            if (result == (int) result) {
+                display.setText(String.valueOf((int) result));
+            } else {
+                display.setText(String.valueOf(result));
+            }
 
-                firstNumber[0] = Double.parseDouble(display.getText());
-                operator[0] = "/";
-                startNewNumber[0] = true;
-            });
-            frame.add(divideButton);
+            startNewNumber[0] = true;
 
-            multButton.setBounds(210, 160, 50, 50);
-            multButton.addActionListener(e -> {
-                if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                    return;
-                }
+            for (JButton button : operatorButtons) {
+                button.setBackground(defaultColor);
+            }
 
-                for (JButton button : operatorButtons) {
-                    button.setBackground(defaultColor);
-                }
+        });
+        frame.add(equalButton);
 
-                multButton.setBackground(activeColor);
+        divideButton.setBounds(210, 100, 50, 50);
+        divideButton.addActionListener(e -> {
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                return;
+            }
 
-                firstNumber[0] = Double.parseDouble(display.getText());
-                operator[0] = "*";
-                startNewNumber[0] = true;
-            });
-            frame.add(multButton);
+            for (JButton button : operatorButtons) {
+                button.setBackground(defaultColor);
+            }
 
-            minusButton.setBounds(210, 220, 50, 50);
-            minusButton.addActionListener(e -> {
-                if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                    return;
-                }
+            divideButton.setBackground(activeColor);
 
-                for (JButton button : operatorButtons) {
-                    button.setBackground(defaultColor);
-                }
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "/";
+            startNewNumber[0] = true;
+        });
+        frame.add(divideButton);
 
-                minusButton.setBackground(activeColor);
+        multButton.setBounds(210, 160, 50, 50);
+        multButton.addActionListener(e -> {
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                return;
+            }
 
-                firstNumber[0] = Double.parseDouble(display.getText());
-                operator[0] = "-";
-                startNewNumber[0] = true;
-            });
-            frame.add(minusButton);
+            for (JButton button : operatorButtons) {
+                button.setBackground(defaultColor);
+            }
 
-            plusButton.setBounds(210, 280, 50, 50);
-            plusButton.addActionListener(e -> {
-                if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                    return;
-                }
+            multButton.setBackground(activeColor);
 
-                for (JButton button : operatorButtons) {
-                    button.setBackground(defaultColor);
-                }
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "*";
+            startNewNumber[0] = true;
+        });
+        frame.add(multButton);
 
-                plusButton.setBackground(activeColor);
+        minusButton.setBounds(210, 220, 50, 50);
+        minusButton.addActionListener(e -> {
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                return;
+            }
 
-                firstNumber[0] = Double.parseDouble(display.getText());
-                operator[0] = "+";
-                startNewNumber[0] = true;
-            });
-            frame.add(plusButton);
+            for (JButton button : operatorButtons) {
+                button.setBackground(defaultColor);
+            }
 
-            frame.setVisible(true);
-        }
+            minusButton.setBackground(activeColor);
+
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "-";
+            startNewNumber[0] = true;
+        });
+        frame.add(minusButton);
+
+        plusButton.setBounds(210, 280, 50, 50);
+        plusButton.addActionListener(e -> {
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                return;
+            }
+
+            for (JButton button : operatorButtons) {
+                button.setBackground(defaultColor);
+            }
+
+            plusButton.setBackground(activeColor);
+
+            firstNumber[0] = Double.parseDouble(display.getText());
+            operator[0] = "+";
+            startNewNumber[0] = true;
+        });
+        frame.add(plusButton);
+
+        frame.setVisible(true);
     }
+}
