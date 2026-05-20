@@ -100,8 +100,8 @@ public class Calculator {
 
         equalButton.setBounds(150, 280, 50, 50);
         equalButton.addActionListener(e -> {
-                if (display.getText().isEmpty()){
-                    return
+                if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                    return;
                 }
 
                 secondNumber[0] = Double.parseDouble(display.getText());
@@ -145,8 +145,8 @@ public class Calculator {
 
             divideButton.setBounds(210, 100, 50, 50);
             divideButton.addActionListener(e -> {
-                if (display.getText().isEmpty()){
-                    return
+                if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                    return;
                 }
 
                 for (JButton button : operatorButtons) {
@@ -163,8 +163,8 @@ public class Calculator {
 
             multButton.setBounds(210, 160, 50, 50);
             multButton.addActionListener(e -> {
-                if (display.getText().isEmpty()){
-                    return
+                if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                    return;
                 }
 
                 for (JButton button : operatorButtons) {
@@ -181,8 +181,8 @@ public class Calculator {
 
             minusButton.setBounds(210, 220, 50, 50);
             minusButton.addActionListener(e -> {
-                if (display.getText().isEmpty()){
-                    return
+                if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                    return;
                 }
 
                 for (JButton button : operatorButtons) {
@@ -199,8 +199,8 @@ public class Calculator {
 
             plusButton.setBounds(210, 280, 50, 50);
             plusButton.addActionListener(e -> {
-                if (display.getText().isEmpty()){
-                    return
+                if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                    return;
                 }
 
                 for (JButton button : operatorButtons) {
