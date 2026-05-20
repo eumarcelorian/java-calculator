@@ -100,6 +100,10 @@ public class Calculator {
 
         equalButton.setBounds(150, 280, 50, 50);
         equalButton.addActionListener(e -> {
+                if (display.getText().isEmpty()){
+                    return
+                }
+
                 secondNumber[0] = Double.parseDouble(display.getText());
                 double result = 0;
 
