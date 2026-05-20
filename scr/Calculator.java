@@ -52,7 +52,7 @@ public class Calculator {
         for (int row = 0; row < 3; row++) {
             // Este for percorre as linhas da calculadora: primeira, segunda e terceira linha de botões
 
-            int x = 30; // Pega o número correspondente à posição atual da matriz
+            int x = 30; // Reinicia a posição horizontal no começo de cada linha
 
             for (int col = 0; col < 3; col++) {
                 // Este for percorre os botões da linha atual, da esquerda para a direita
@@ -130,6 +130,10 @@ public class Calculator {
 
             divideButton.setBounds(210, 100, 50, 50);
             divideButton.addActionListener(e -> {
+                if (display.getText().isEmpty()){
+                    return
+                }
+
                 for (JButton button : operatorButtons) {
                     button.setBackground(defaultColor);
                 }
@@ -144,6 +148,10 @@ public class Calculator {
 
             multButton.setBounds(210, 160, 50, 50);
             multButton.addActionListener(e -> {
+                if (display.getText().isEmpty()){
+                    return
+                }
+
                 for (JButton button : operatorButtons) {
                     button.setBackground(defaultColor);
                 }
@@ -158,6 +166,10 @@ public class Calculator {
 
             minusButton.setBounds(210, 220, 50, 50);
             minusButton.addActionListener(e -> {
+                if (display.getText().isEmpty()){
+                    return
+                }
+
                 for (JButton button : operatorButtons) {
                     button.setBackground(defaultColor);
                 }
@@ -172,6 +184,10 @@ public class Calculator {
 
             plusButton.setBounds(210, 280, 50, 50);
             plusButton.addActionListener(e -> {
+                if (display.getText().isEmpty()){
+                    return
+                }
+
                 for (JButton button : operatorButtons) {
                     button.setBackground(defaultColor);
                 }
