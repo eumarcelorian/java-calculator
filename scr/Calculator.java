@@ -100,33 +100,32 @@ public class Calculator {
 
         equalButton.setBounds(150, 280, 50, 50);
         equalButton.addActionListener(e -> {
-                    secondNumber[0] = Double.parseDouble(display.getText());
-                    double result = 0;
+                secondNumber[0] = Double.parseDouble(display.getText());
+                double result = 0;
 
-                    if (operator[0].equals("+")) {
-                        result = firstNumber[0] + secondNumber[0];
-                    } else if (operator[0].equals("-")) {
-                        result = firstNumber[0] - secondNumber[0];
-                    } else if (operator[0].equals("*")) {
-                        result = firstNumber[0] * secondNumber[0];
-                    } else if (operator[0].equals("/")) {
-                        result = firstNumber[0] / secondNumber[0];
-                    }
+                if (operator[0].equals("+")) {
+                    result = firstNumber[0] + secondNumber[0];
+                } else if (operator[0].equals("-")) {
+                    result = firstNumber[0] - secondNumber[0];
+                } else if (operator[0].equals("*")) {
+                    result = firstNumber[0] * secondNumber[0];
+                } else if (operator[0].equals("/")) {
+                    result = firstNumber[0] / secondNumber[0];
+                }
 
-                    if (result == (int) result) {
-                        display.setText(String.valueOf((int) result));
-                    } else {
-                        display.setText(String.valueOf(result));
-                    }
-                });
+                if (result == (int) result) {
+                    display.setText(String.valueOf((int) result));
+                } else {
+                    display.setText(String.valueOf(result));
+                }
 
-            startNewNumber[0] = true;
+                startNewNumber[0] = true;
 
-            for (JButton button : operatorButtons) {
+                for (JButton button : operatorButtons) {
+                    button.setBackground(defaultColor);
+                }
 
-                button.setBackground(defaultColor);
-            }
-            ;
+            });
             frame.add(equalButton);
 
             divideButton.setBounds(210, 100, 50, 50);
