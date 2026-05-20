@@ -114,7 +114,18 @@ public class Calculator {
                 } else if (operator[0].equals("*")) {
                     result = firstNumber[0] * secondNumber[0];
                 } else if (operator[0].equals("/")) {
-                    result = firstNumber[0] / secondNumber[0];
+                    if (secondNumber[0] == 0) {
+                        display.setText("Error");
+                        startNewNumber[0] = true;
+
+                        for (JButton button : operatorButtons) {
+                            button.setBackground(defaultColor);
+                        }
+
+                        return;
+                    }
+
+                    result = firstNumber[0] * secondNumber[0];
                 }
 
                 if (result == (int) result) {
