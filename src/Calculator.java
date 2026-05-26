@@ -16,6 +16,20 @@ public class Calculator {
 
         Color defaultColor = UIManager.getColor("Button.background");
         Color activeColor = new Color(180, 220, 255);
+        Color functionButtonColor = new Color(200, 200, 200);
+        Color functionTextColor = Color.BLACK;
+
+        clearButton.setBackground(functionButtonColor);
+        clearButton.setForeground(functionTextColor);
+        clearButton.setOpaque(true);
+        clearButton.setBorderPainted(false);
+        clearButton.setFocusPainted(false);
+
+        equalButton.setBackground(functionButtonColor);
+        equalButton.setForeground(functionTextColor);
+        equalButton.setOpaque(true);
+        equalButton.setBorderPainted(false);
+        equalButton.setFocusPainted(false);
 
         JButton[] operatorButtons = {divideButton, multButton, minusButton, plusButton};
 
