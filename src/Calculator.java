@@ -21,10 +21,13 @@ public class Calculator {
         // =========================================================
         // 2. CONFIGURAÇÃO DE CORES E AGRUPAMENTO DOS OPERADORES
         // =========================================================
-        Color defaultColor = UIManager.getColor("Button.background");
-        Color activeColor = new Color(180, 220, 255);
+        Color operatorColor = new Color(255, 159, 10);
+        Color activeColor = new Color(255, 140, 0);
+
         Color functionButtonColor = new Color(200, 200, 200);
         Color functionTextColor = Color.BLACK;
+
+        Color operatorTextColor = Color.WHITE;
 
         JButton[] operatorButtons = {divideButton, multButton, minusButton, plusButton};
 
@@ -44,8 +47,11 @@ public class Calculator {
         equalButton.setFocusPainted(false);
 
         for (JButton button : operatorButtons) {
+            button.setBackground(operatorColor);
+            button.setForeground(operatorTextColor);
             button.setOpaque(true);
-            button.setBorderPainted(true);
+            button.setBorderPainted(false);
+            button.setFocusPainted(false);
         }
 
         // =========================================================
@@ -138,7 +144,7 @@ public class Calculator {
             startNewNumber[0] = false;
 
             for (JButton button : operatorButtons) {
-                button.setBackground(defaultColor);
+                button.setBackground(operatorColor);
             }
         });
         frame.add(clearButton);
@@ -167,7 +173,7 @@ public class Calculator {
                     startNewNumber[0] = true;
 
                     for (JButton button : operatorButtons) {
-                        button.setBackground(defaultColor);
+                        button.setBackground(operatorColor);
                     }
 
                     return;
@@ -185,7 +191,7 @@ public class Calculator {
             startNewNumber[0] = true;
 
             for (JButton button : operatorButtons) {
-                button.setBackground(defaultColor);
+                button.setBackground(operatorColor);
             }
         });
         frame.add(equalButton);
@@ -200,7 +206,7 @@ public class Calculator {
             }
 
             for (JButton button : operatorButtons) {
-                button.setBackground(defaultColor);
+                button.setBackground(operatorColor);
             }
 
             divideButton.setBackground(activeColor);
@@ -221,7 +227,7 @@ public class Calculator {
             }
 
             for (JButton button : operatorButtons) {
-                button.setBackground(defaultColor);
+                button.setBackground(operatorColor);
             }
 
             multButton.setBackground(activeColor);
@@ -242,7 +248,7 @@ public class Calculator {
             }
 
             for (JButton button : operatorButtons) {
-                button.setBackground(defaultColor);
+                button.setBackground(operatorColor);
             }
 
             minusButton.setBackground(activeColor);
@@ -263,7 +269,7 @@ public class Calculator {
             }
 
             for (JButton button : operatorButtons) {
-                button.setBackground(defaultColor);
+                button.setBackground(operatorColor);
             }
 
             plusButton.setBackground(activeColor);
