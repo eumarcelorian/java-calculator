@@ -13,13 +13,16 @@ public class Calculator {
 
         JButton clearButton = new JButton("C");
         JButton equalButton = new JButton("=");
+        JButton deleteButton = new JButton("⌫");
+        JButton percentButton = new JButton("%");
+        JButton signButton = new JButton("+/-");
         JButton multButton = new JButton("*");
         JButton divideButton = new JButton("/");
         JButton plusButton = new JButton("+");
         JButton minusButton = new JButton("-");
 
         // =========================================================
-        // 2. CONFIGURAÇÃO DE CORES E AGRUPAMENTO DOS OPERADORES
+        // 2. CONFIGURAÇÃO DE CORES E AGRUPAMENTOS
         // =========================================================
         Color operatorColor = new Color(255, 159, 10);
         Color activeColor = new Color(255, 140, 0);
@@ -30,15 +33,18 @@ public class Calculator {
         Color operatorTextColor = Color.WHITE;
 
         JButton[] operatorButtons = {divideButton, multButton, minusButton, plusButton, equalButton};
+        JButton[] functionButtons = {clearButton, deleteButton, percentButton, signButton};
 
         // =========================================================
         // 3. ESTILIZAÇÃO INICIAL DOS BOTÕES
         // =========================================================
-        clearButton.setBackground(functionButtonColor);
-        clearButton.setForeground(functionTextColor);
-        clearButton.setOpaque(true);
-        clearButton.setBorderPainted(false);
-        clearButton.setFocusPainted(false);
+        for (JButton button : functionButtons) {
+            button.setBackground(functionButtonColor);
+            button.setForeground(functionTextColor);
+            button.setOpaque(true);
+            button.setBorderPainted(false);
+            button.setFocusPainted(false);
+        }
 
         for (JButton button : operatorButtons) {
             button.setBackground(operatorColor);
