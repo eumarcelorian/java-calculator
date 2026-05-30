@@ -16,11 +16,18 @@ public class Calculator {
         JButton deleteButton = new JButton("⌫");
         JButton percentButton = new JButton("%");
         JButton decimalButton = new JButton(",");
-        JButton signButton = new JButton("+/-");
+        JButton signButton = new JButton("±");
         JButton multButton = new JButton("*");
         JButton divideButton = new JButton("/");
         JButton plusButton = new JButton("+");
         JButton minusButton = new JButton("-");
+
+        final int BUTTON_SIZE = 60;
+        final int GAP = 10;
+        final int START_X = 30;
+        final int START_Y = 100;
+        int lastRowY = START_Y + 4 * (BUTTON_SIZE + GAP);
+        int operatorX = START_X + 3 * (BUTTON_SIZE + GAP);
 
         // ============================================================================================================
         // 2. CONFIGURAÇÃO DE CORES E AGRUPAMENTOS
@@ -34,7 +41,7 @@ public class Calculator {
         Color operatorTextColor = Color.WHITE;
 
         JButton[] operatorButtons = {divideButton, multButton, minusButton, plusButton, equalButton};
-        JButton[] functionButtons = {clearButton, deleteButton, percentButton, signButton};
+        JButton[] functionButtons = {clearButton, deleteButton, percentButton, signButton, decimalButton};
 
         // ============================================================================================================
         // 3. ESTILIZAÇÃO INICIAL DOS BOTÕES
@@ -66,22 +73,42 @@ public class Calculator {
         // ============================================================================================================
         // 5. CONFIGURAÇÃO DA JANELA PRINCIPAL E POSICIONAMENTO DOS BOTÕES
         // ============================================================================================================
-        frame.setSize(340, 460);
+        frame.setSize(350, 520);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha o programa ao fechar a janela
         frame.setLayout(null); // Permite posicionar manualmente
 
-        deleteButton.setBounds(100, 100, 60, 50);
-        percentButton.setBounds(170, 100, 60, 50);
-        signButton.setBounds(30, 340, 60, 50);
-        frame.add(signButton);
-        decimalButton.setBounds(170, 340, 60, 50);
-        frame.add(decimalButton);
+        deleteButton.setBounds(
+                START_X + (BUTTON_SIZE + GAP),
+                START_Y,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(deleteButton);
 
+        percentButton.setBounds(
+                START_X + 2 * (BUTTON_SIZE + GAP),
+                START_Y,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(percentButton);
+
+        signButton.setBounds(
+                START_X,
+                lastRowY,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(signButton);
+
+        decimalButton.setBounds(
+                START_X + 2 * (BUTTON_SIZE + GAP),
+                lastRowY,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(decimalButton);
 
         // ============================================================================================================
         // 6. CONFIGURAÇÃO DO VISOR
         // ============================================================================================================
-        display.setBounds(30, 30, 220, 40); // Posição e tamanho do visor
+        display.setBounds(30, 30, 270, 40); // Posição e tamanho do visor
         display.setEditable(false); // Impede digitação direta
         frame.add(display);
 
@@ -104,25 +131,28 @@ public class Calculator {
         // ============================================================================================================
         // 9. POSICIONAMENTO DOS BOTÕES NUMÉRICOS NA TELA
         // ============================================================================================================
-        int y = 160;
-
+        int y = START_Y + BUTTON_SIZE + GAP;
         for (int row = 0; row < 3; row++) {
             int x = 30; // Reinicia a posição horizontal no começo de cada linha
 
             for (int col = 0; col < 3; col++) {
                 int number = numbers[row][col]; // Pega o número da matriz
 
-                buttons[number].setBounds(x, y, 50, 50); // Define posição e tamanho
+                buttons[number].setBounds(x, y, BUTTON_SIZE, BUTTON_SIZE); // Define posição e tamanho
                 frame.add(buttons[number]); // Adiciona o botão na janela
 
-                x += 60; // Move para a próxima coluna
+                x += BUTTON_SIZE + GAP; // Move para a próxima coluna
             }
 
-            y += 60; // Move para a próxima linha
+            y += BUTTON_SIZE + GAP; // Move para a próxima linha
         }
 
         // Botão 0 fica na última linha, centralizado
-        buttons[0].setBounds(100, 340, 60, 50);
+        buttons[0].setBounds(
+                START_X + (BUTTON_SIZE + GAP),
+                lastRowY,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
         frame.add(buttons[0]);
 
         // ============================================================================================================
@@ -144,7 +174,11 @@ public class Calculator {
         // ============================================================================================================
         // 11. CONFIGURAÇÃO E LÓGICA DO BOTÃO CLEAR
         // ============================================================================================================
-        clearButton.setBounds(30, 100, 60, 50);
+        clearButton.setBounds(
+                START_X,
+                START_Y,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
         clearButton.addActionListener(e -> {
             display.setText("");
             firstNumber[0] = 0;
@@ -161,7 +195,11 @@ public class Calculator {
         // ============================================================================================================
         // 12. CONFIGURAÇÃO E LÓGICA DO BOTÃO IGUAL
         // ============================================================================================================
-        equalButton.setBounds(240, 400, 60, 50);
+        equalButton.setBounds(
+                START_X + 3 * (BUTTON_SIZE + GAP),
+                START_Y,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
         equalButton.addActionListener(e -> {
             if (display.getText().isEmpty() || display.getText().equals("Error")) {
                 return;
@@ -208,7 +246,11 @@ public class Calculator {
         // ============================================================================================================
         // 13. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE DIVISÃO
         // ============================================================================================================
-        divideButton.setBounds(240, 160, 60, 50);
+        divideButton.setBounds(
+                operatorX,
+                START_Y + (BUTTON_SIZE + GAP),
+                BUTTON_SIZE,
+                BUTTON_SIZE);
         divideButton.addActionListener(e -> {
             if (display.getText().isEmpty() || display.getText().equals("Error")) {
                 return;
@@ -236,7 +278,11 @@ public class Calculator {
         // ============================================================================================================
         // 14. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE MULTIPLICAÇÃO
         // ============================================================================================================
-        multButton.setBounds(240, 220, 60, 50);
+        multButton.setBounds(
+                operatorX,
+                START_Y + 2 * (BUTTON_SIZE + GAP),
+                BUTTON_SIZE,
+                BUTTON_SIZE);
         multButton.addActionListener(e -> {
             if (display.getText().isEmpty() || display.getText().equals("Error")) {
                 return;
@@ -264,7 +310,11 @@ public class Calculator {
         // ============================================================================================================
         // 15. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE SUBTRAÇÃO
         // ============================================================================================================
-        minusButton.setBounds(240, 280, 60, 50);
+        minusButton.setBounds(
+                operatorX,
+                START_Y + 3 * (BUTTON_SIZE + GAP),
+                BUTTON_SIZE,
+                BUTTON_SIZE);
         minusButton.addActionListener(e -> {
             if (display.getText().isEmpty() || display.getText().equals("Error")) {
                 return;
@@ -292,7 +342,11 @@ public class Calculator {
         // ============================================================================================================
         // 16. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE SOMA
         // ============================================================================================================
-        plusButton.setBounds(240, 340, 60, 50);
+        plusButton.setBounds(
+                operatorX,
+                START_Y + 4 * (BUTTON_SIZE + GAP),
+                BUTTON_SIZE,
+                BUTTON_SIZE);
         plusButton.addActionListener(e -> {
             if (display.getText().isEmpty() || display.getText().equals("Error")) {
                 return;
