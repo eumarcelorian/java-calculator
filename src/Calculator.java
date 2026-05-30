@@ -29,22 +29,16 @@ public class Calculator {
 
         Color operatorTextColor = Color.WHITE;
 
-        JButton[] operatorButtons = {divideButton, multButton, minusButton, plusButton};
+        JButton[] operatorButtons = {divideButton, multButton, minusButton, plusButton, equalButton};
 
         // =========================================================
-        // 3. ESTILIZAÇÃO INICIAL DOS BOTÕES DE FUNÇÃO
+        // 3. ESTILIZAÇÃO INICIAL DOS BOTÕES
         // =========================================================
         clearButton.setBackground(functionButtonColor);
         clearButton.setForeground(functionTextColor);
         clearButton.setOpaque(true);
         clearButton.setBorderPainted(false);
         clearButton.setFocusPainted(false);
-
-        equalButton.setBackground(functionButtonColor);
-        equalButton.setForeground(functionTextColor);
-        equalButton.setOpaque(true);
-        equalButton.setBorderPainted(false);
-        equalButton.setFocusPainted(false);
 
         for (JButton button : operatorButtons) {
             button.setBackground(operatorColor);
