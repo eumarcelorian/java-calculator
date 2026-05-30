@@ -211,6 +211,13 @@ public class Calculator {
 
             divideButton.setBackground(activeColor);
 
+            Timer timer = new Timer(150, event -> {
+                divideButton.setBackground(operatorColor);
+            });
+
+            timer.setRepeats(false);
+            timer.start();
+
             firstNumber[0] = Double.parseDouble(display.getText());
             operator[0] = "/";
             startNewNumber[0] = true;
@@ -231,6 +238,13 @@ public class Calculator {
             }
 
             multButton.setBackground(activeColor);
+
+            Timer timer = new Timer(150, event -> {
+                multButton.setBackground(operatorColor);
+            });
+
+            timer.setRepeats(false);
+            timer.start();
 
             firstNumber[0] = Double.parseDouble(display.getText());
             operator[0] = "*";
@@ -253,6 +267,13 @@ public class Calculator {
 
             minusButton.setBackground(activeColor);
 
+            Timer timer = new Timer(150, event -> {
+                minusButton.setBackground(operatorColor);
+            });
+
+            timer.setRepeats(false);
+            timer.start();
+
             firstNumber[0] = Double.parseDouble(display.getText());
             operator[0] = "-";
             startNewNumber[0] = true;
@@ -273,6 +294,13 @@ public class Calculator {
             }
 
             plusButton.setBackground(activeColor);
+
+            Timer timer = new Timer(150, event -> {
+                plusButton.setBackground(operatorColor);
+            });
+
+            timer.setRepeats(false);
+            timer.start();
 
             firstNumber[0] = Double.parseDouble(display.getText());
             operator[0] = "+";
