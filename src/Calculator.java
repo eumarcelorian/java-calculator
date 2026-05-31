@@ -22,11 +22,18 @@ public class Calculator {
         JButton plusButton = new JButton("+");
         JButton minusButton = new JButton("-");
 
+        // Configurações de tamanho e espaçamento utilizadas em toda a interface.
+        // Alterando esses valores, todo o layout é ajustado automaticamente.
         final int BUTTON_SIZE = 60;
         final int GAP = 10;
         final int START_X = 30;
         final int START_Y = 100;
+
+        // Calcula a posição da última linha da calculadora.
+        // Utilizado pelos botões ±, 0, (vírgula) e +.
         int lastRowY = START_Y + 4 * (BUTTON_SIZE + GAP);
+
+        // Calcula a coluna fixa dos operadores.
         int operatorX = START_X + 3 * (BUTTON_SIZE + GAP);
 
         // ============================================================================================================
@@ -65,13 +72,16 @@ public class Calculator {
         // ============================================================================================================
         // 4. VARIÁVEIS DE CONTROLE DA LÓGICA DA CALCULADORA
         // ============================================================================================================
+        // Armazenam os valores da operação em andamento.
         double[] firstNumber = {0};
         double[] secondNumber = {0};
+
+        // Operador selecionado (+, -, *, /)
         String[] operator = {""};
-        boolean[] startNewNumber = {false};
+        boolean[] startNewNumber = {false}; // Indica se o próximo número digitado deve substituir o visor.
 
         // ============================================================================================================
-        // 5. CONFIGURAÇÃO DA JANELA PRINCIPAL E POSICIONAMENTO DOS BOTÕES
+        // 5. JANELA PRINCIPAL E POSICIONAMENTO DOS BOTÕES DELETE, PERCENT, SIGN E DECIMAL
         // ============================================================================================================
         frame.setSize(350, 520);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha o programa ao fechar a janela
@@ -122,6 +132,7 @@ public class Calculator {
         // ============================================================================================================
         // 8. MATRIZ QUE DEFINE A ORDEM VISUAL DOS NÚMEROS
         // ============================================================================================================
+        // Define a disposição visual dos números na calculadora.
         int[][] numbers = {
                 {7, 8, 9},
                 {4, 5, 6},
@@ -131,6 +142,8 @@ public class Calculator {
         // ============================================================================================================
         // 9. POSICIONAMENTO DOS BOTÕES NUMÉRICOS NA TELA
         // ============================================================================================================
+        // Percorre a matriz e posiciona automaticamente os botões numéricos.
+        // Isso evita escrever setBounds manualmente para cada número.
         int y = START_Y + BUTTON_SIZE + GAP;
         for (int row = 0; row < 3; row++) {
             int x = 30; // Reinicia a posição horizontal no começo de cada linha
