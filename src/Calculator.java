@@ -2,6 +2,53 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Calculator {
+    // Configura o comportamento padrão dos botões de operação
+    // (+, -, *, /), evitando repetição de código.
+    private static void configureOperator(
+            JButton button,
+            String symbol,
+            JTextField display,
+            JButton[] operatorButtons,
+            Color operatorColor,
+            Color activeColor,
+            double[] firstNumber,
+            String[] operator,
+            boolean[] startNewNumber
+    ) {
+        button.addActionListener(e -> {
+
+            // Impede selecionar uma operação quando o visor está vazio
+            // ou exibindo uma mensagem de erro.
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {return;}
+
+            // Restaura a cor original de todos os operadores.
+            for (JButton btn : operatorButtons) {
+                btn.setBackground(operatorColor);
+            }
+
+            // Destaca visualmente o operador pressionado.
+            button.setBackground(activeColor);
+
+            // Após 150ms, retorna a cor original do botão.
+            Timer timer = new Timer(150, event ->
+                    button.setBackground(operatorColor));
+
+            timer.setRepeats(false);
+            timer.start();
+
+            // Armazena o primeiro número digitado para ser usado
+            // posteriormente no cálculo.
+            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
+
+            // Guarda qual operação foi escolhida.
+            operator[0] = symbol;
+
+            // Indica que o próximo número digitado deve substituir
+            // o conteúdo atual do visor.
+            startNewNumber[0] = true;
+        });
+    }
+
     public static void main(String[] args) {
 
         // ============================================================================================================
@@ -81,43 +128,12 @@ public class Calculator {
         boolean[] startNewNumber = {false}; // Indica se o próximo número digitado deve substituir o visor.
 
         // ============================================================================================================
-        // JANELA PRINCIPAL E POSICIONAMENTO DOS BOTÕES DELETE, PERCENT, SIGN E DECIMAL
+        // CONFIGURAÇÃO DA JANELA PRINCIPAL  E CONFIGURAÇÃO DO VISOR
         // ============================================================================================================
         frame.setSize(350, 520);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha o programa ao fechar a janela
         frame.setLayout(null); // Permite posicionar manualmente
 
-        deleteButton.setBounds(
-                START_X + (BUTTON_SIZE + GAP),
-                START_Y,
-                BUTTON_SIZE,
-                BUTTON_SIZE);
-        frame.add(deleteButton);
-
-        percentButton.setBounds(
-                START_X + 2 * (BUTTON_SIZE + GAP),
-                START_Y,
-                BUTTON_SIZE,
-                BUTTON_SIZE);
-        frame.add(percentButton);
-
-        signButton.setBounds(
-                START_X,
-                lastRowY,
-                BUTTON_SIZE,
-                BUTTON_SIZE);
-        frame.add(signButton);
-
-        decimalButton.setBounds(
-                START_X + 2 * (BUTTON_SIZE + GAP),
-                lastRowY,
-                BUTTON_SIZE,
-                BUTTON_SIZE);
-        frame.add(decimalButton);
-
-        // ============================================================================================================
-        // CONFIGURAÇÃO DO VISOR
-        // ============================================================================================================
         display.setBounds(30, 30, 270, 40); // Posição e tamanho do visor
         display.setEditable(false); // Impede digitação direta
         frame.add(display);
@@ -208,6 +224,13 @@ public class Calculator {
         //=============================================================================================================
         // CONFIGURAÇÃO E LÓGICA DO BOTÃO DELETE
         //=============================================================================================================
+        deleteButton.setBounds(
+                START_X + (BUTTON_SIZE + GAP),
+                START_Y,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(deleteButton);
+
         deleteButton.addActionListener(e -> {
             String text = display.getText();
             if (!text.isEmpty() && !text.equals("Error")) {
@@ -218,8 +241,15 @@ public class Calculator {
         //=============================================================================================================
         // CONFIGURAÇÃO E LÓGICA DO BOTÃO SIGN
         //=============================================================================================================
+        signButton.setBounds(
+                START_X,
+                lastRowY,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(signButton);
+
         signButton.addActionListener(e -> {
-            if (display.getText().isEmpty() || display.getText().equals("Error")){
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {
                 return;
             }
 
@@ -237,6 +267,13 @@ public class Calculator {
         // ============================================================================================================
         // CONFIGURAÇÃO E LÓGICA DO BOTÃO DECIMAL
         // ============================================================================================================
+        decimalButton.setBounds(
+                START_X + 2 * (BUTTON_SIZE + GAP),
+                lastRowY,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(decimalButton);
+
         decimalButton.addActionListener(e -> {
             String text = display.getText();
 
@@ -255,20 +292,35 @@ public class Calculator {
         // ============================================================================================================
         // CONFIGURAÇÃO E LÓGICA DO BOTÃO PERCENT
         // ============================================================================================================
+        percentButton.setBounds(
+                START_X + 2 * (BUTTON_SIZE + GAP),
+                START_Y,
+                BUTTON_SIZE,
+                BUTTON_SIZE);
+        frame.add(percentButton);
+
         percentButton.addActionListener(e -> {
 
             if (display.getText().isEmpty() || display.getText().equals("Error")) {
                 return;
             }
 
-            double value = Double.parseDouble(display.getText().replace(",", "."));
+            double currentValue = Double.parseDouble(display.getText());
 
-            value = value / 100;
-
-            if (value == (int) value) {
-                display.setText(String.valueOf((int) value));
+            if (!operator[0].isEmpty()) {
+                double percentValue = firstNumber[0] * currentValue / 100;
+                if (percentValue == (int) percentValue) {
+                    display.setText(String.valueOf((int) percentValue));
+                } else {
+                    display.setText(String.valueOf(percentValue));
+                }
             } else {
-                display.setText(String.valueOf(value).replace(",", "."));
+                double result = currentValue / 100;
+                if (result == (int) result) {
+                    display.setText(String.valueOf((int) result));
+                } else {
+                    display.setText(String.valueOf(result));
+                }
             }
         });
 
@@ -331,28 +383,16 @@ public class Calculator {
                 START_Y + (BUTTON_SIZE + GAP),
                 BUTTON_SIZE,
                 BUTTON_SIZE);
-        divideButton.addActionListener(e -> {
-            if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                return;
-            }
-
-            for (JButton button : operatorButtons) {
-                button.setBackground(operatorColor);
-            }
-
-            divideButton.setBackground(activeColor);
-
-            Timer timer = new Timer(150, event -> {
-                divideButton.setBackground(operatorColor);
-            });
-
-            timer.setRepeats(false);
-            timer.start();
-
-            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
-            operator[0] = "/";
-            startNewNumber[0] = true;
-        });
+        configureOperator(
+                divideButton,
+                "/",
+                display,
+                operatorButtons,
+                operatorColor,
+                activeColor,
+                firstNumber,
+                operator,
+                startNewNumber);
         frame.add(divideButton);
 
         // ============================================================================================================
@@ -363,28 +403,16 @@ public class Calculator {
                 START_Y + 2 * (BUTTON_SIZE + GAP),
                 BUTTON_SIZE,
                 BUTTON_SIZE);
-        multButton.addActionListener(e -> {
-            if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                return;
-            }
-
-            for (JButton button : operatorButtons) {
-                button.setBackground(operatorColor);
-            }
-
-            multButton.setBackground(activeColor);
-
-            Timer timer = new Timer(150, event -> {
-                multButton.setBackground(operatorColor);
-            });
-
-            timer.setRepeats(false);
-            timer.start();
-
-            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
-            operator[0] = "*";
-            startNewNumber[0] = true;
-        });
+        configureOperator(
+                multButton,
+                "*",
+                display,
+                operatorButtons,
+                operatorColor,
+                activeColor,
+                firstNumber,
+                operator,
+                startNewNumber);
         frame.add(multButton);
 
         // ============================================================================================================
@@ -395,28 +423,16 @@ public class Calculator {
                 START_Y + 3 * (BUTTON_SIZE + GAP),
                 BUTTON_SIZE,
                 BUTTON_SIZE);
-        minusButton.addActionListener(e -> {
-            if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                return;
-            }
-
-            for (JButton button : operatorButtons) {
-                button.setBackground(operatorColor);
-            }
-
-            minusButton.setBackground(activeColor);
-
-            Timer timer = new Timer(150, event -> {
-                minusButton.setBackground(operatorColor);
-            });
-
-            timer.setRepeats(false);
-            timer.start();
-
-            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
-            operator[0] = "-";
-            startNewNumber[0] = true;
-        });
+        configureOperator(
+                minusButton,
+                "-",
+                display,
+                operatorButtons,
+                operatorColor,
+                activeColor,
+                firstNumber,
+                operator,
+                startNewNumber);
         frame.add(minusButton);
 
         // ============================================================================================================
@@ -427,28 +443,16 @@ public class Calculator {
                 START_Y + 4 * (BUTTON_SIZE + GAP),
                 BUTTON_SIZE,
                 BUTTON_SIZE);
-        plusButton.addActionListener(e -> {
-            if (display.getText().isEmpty() || display.getText().equals("Error")) {
-                return;
-            }
-
-            for (JButton button : operatorButtons) {
-                button.setBackground(operatorColor);
-            }
-
-            plusButton.setBackground(activeColor);
-
-            Timer timer = new Timer(150, event -> {
-                plusButton.setBackground(operatorColor);
-            });
-
-            timer.setRepeats(false);
-            timer.start();
-
-            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
-            operator[0] = "+";
-            startNewNumber[0] = true;
-        });
+        configureOperator(
+                plusButton,
+                "+",
+                display,
+                operatorButtons,
+                operatorColor,
+                activeColor,
+                firstNumber,
+                operator,
+                startNewNumber);
         frame.add(plusButton);
 
         // ============================================================================================================
