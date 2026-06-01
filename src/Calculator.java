@@ -5,7 +5,7 @@ public class Calculator {
     public static void main(String[] args) {
 
         // ============================================================================================================
-        // 1. CRIAÇÃO DOS COMPONENTES PRINCIPAIS DA INTERFACE
+        // CRIAÇÃO DOS COMPONENTES PRINCIPAIS DA INTERFACE
         // ============================================================================================================
         JFrame frame = new JFrame("Calculator"); // Cria a janela principal
         JTextField display = new JTextField(); // Cria o visor da calculadora
@@ -37,7 +37,7 @@ public class Calculator {
         int operatorX = START_X + 3 * (BUTTON_SIZE + GAP);
 
         // ============================================================================================================
-        // 2. CONFIGURAÇÃO DE CORES E AGRUPAMENTOS
+        // CONFIGURAÇÃO DE CORES E AGRUPAMENTOS
         // ============================================================================================================
         Color operatorColor = new Color(255, 159, 10);
         Color activeColor = new Color(255, 140, 0);
@@ -51,7 +51,7 @@ public class Calculator {
         JButton[] functionButtons = {clearButton, deleteButton, percentButton, signButton, decimalButton};
 
         // ============================================================================================================
-        // 3. ESTILIZAÇÃO INICIAL DOS BOTÕES
+        // ESTILIZAÇÃO INICIAL DOS BOTÕES
         // ============================================================================================================
         for (JButton button : functionButtons) {
             button.setBackground(functionButtonColor);
@@ -70,7 +70,7 @@ public class Calculator {
         }
 
         // ============================================================================================================
-        // 4. VARIÁVEIS DE CONTROLE DA LÓGICA DA CALCULADORA
+        // VARIÁVEIS DE CONTROLE DA LÓGICA DA CALCULADORA
         // ============================================================================================================
         // Armazenam os valores da operação em andamento.
         double[] firstNumber = {0};
@@ -81,7 +81,7 @@ public class Calculator {
         boolean[] startNewNumber = {false}; // Indica se o próximo número digitado deve substituir o visor.
 
         // ============================================================================================================
-        // 5. JANELA PRINCIPAL E POSICIONAMENTO DOS BOTÕES DELETE, PERCENT, SIGN E DECIMAL
+        // JANELA PRINCIPAL E POSICIONAMENTO DOS BOTÕES DELETE, PERCENT, SIGN E DECIMAL
         // ============================================================================================================
         frame.setSize(350, 520);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Fecha o programa ao fechar a janela
@@ -116,21 +116,21 @@ public class Calculator {
         frame.add(decimalButton);
 
         // ============================================================================================================
-        // 6. CONFIGURAÇÃO DO VISOR
+        // CONFIGURAÇÃO DO VISOR
         // ============================================================================================================
         display.setBounds(30, 30, 270, 40); // Posição e tamanho do visor
         display.setEditable(false); // Impede digitação direta
         frame.add(display);
 
         // ============================================================================================================
-        // 7. CRIAÇÃO DOS BOTÕES NUMÉRICOS
+        // CRIAÇÃO DOS BOTÕES NUMÉRICOS
         // ============================================================================================================
         for (int i = 0; i <= 9; i++) {
             buttons[i] = new JButton(String.valueOf(i));
         }
 
         // ============================================================================================================
-        // 8. MATRIZ QUE DEFINE A ORDEM VISUAL DOS NÚMEROS
+        // MATRIZ QUE DEFINE A ORDEM VISUAL DOS NÚMEROS
         // ============================================================================================================
         // Define a disposição visual dos números na calculadora.
         int[][] numbers = {
@@ -140,7 +140,7 @@ public class Calculator {
         };
 
         // ============================================================================================================
-        // 9. POSICIONAMENTO DOS BOTÕES NUMÉRICOS NA TELA
+        // POSICIONAMENTO DOS BOTÕES NUMÉRICOS NA TELA
         // ============================================================================================================
         // Percorre a matriz e posiciona automaticamente os botões numéricos.
         // Isso evita escrever setBounds manualmente para cada número.
@@ -169,7 +169,7 @@ public class Calculator {
         frame.add(buttons[0]);
 
         // ============================================================================================================
-        // 10. EVENTOS DOS BOTÕES NUMÉRICOS
+        // EVENTOS DOS BOTÕES NUMÉRICOS
         // ============================================================================================================
         for (int i = 0; i <= 9; i++) {
             int number = i;
@@ -185,7 +185,7 @@ public class Calculator {
         }
 
         // ============================================================================================================
-        // 11. CONFIGURAÇÃO E LÓGICA DO BOTÃO CLEAR
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO CLEAR
         // ============================================================================================================
         clearButton.setBounds(
                 START_X,
@@ -205,8 +205,75 @@ public class Calculator {
         });
         frame.add(clearButton);
 
+        //=============================================================================================================
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO DELETE
+        //=============================================================================================================
+        deleteButton.addActionListener(e -> {
+            String text = display.getText();
+            if (!text.isEmpty() && !text.equals("Error")) {
+                display.setText(text.substring(0, text.length() - 1));
+            }
+        });
+
+        //=============================================================================================================
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO SIGN
+        //=============================================================================================================
+        signButton.addActionListener(e -> {
+            if (display.getText().isEmpty() || display.getText().equals("Error")){
+                return;
+            }
+
+            double value = Double.parseDouble(display.getText().replace(",", "."));
+
+            value *= -1;
+
+            if (value == (int) value) {
+                display.setText(String.valueOf((int) value));
+            } else {
+                display.setText(String.valueOf(value).replace(",", "."));
+            }
+        });
+
         // ============================================================================================================
-        // 12. CONFIGURAÇÃO E LÓGICA DO BOTÃO IGUAL
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO DECIMAL
+        // ============================================================================================================
+        decimalButton.addActionListener(e -> {
+            String text = display.getText();
+
+            if (text.equals("Error")) {
+                return;
+            }
+            if (text.isEmpty()) {
+                display.setText("0,");
+                return;
+            }
+            if (!text.contains(",")) {
+                display.setText(text + ",");
+            }
+        });
+
+        // ============================================================================================================
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO PERCENT
+        // ============================================================================================================
+        percentButton.addActionListener(e -> {
+
+            if (display.getText().isEmpty() || display.getText().equals("Error")) {
+                return;
+            }
+
+            double value = Double.parseDouble(display.getText().replace(",", "."));
+
+            value = value / 100;
+
+            if (value == (int) value) {
+                display.setText(String.valueOf((int) value));
+            } else {
+                display.setText(String.valueOf(value).replace(",", "."));
+            }
+        });
+
+        // ============================================================================================================
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO IGUAL
         // ============================================================================================================
         equalButton.setBounds(
                 START_X + 3 * (BUTTON_SIZE + GAP),
@@ -218,7 +285,7 @@ public class Calculator {
                 return;
             }
 
-            secondNumber[0] = Double.parseDouble(display.getText());
+            secondNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
             double result = 0;
 
             if (operator[0].equals("+")) {
@@ -257,7 +324,7 @@ public class Calculator {
         frame.add(equalButton);
 
         // ============================================================================================================
-        // 13. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE DIVISÃO
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO DE DIVISÃO
         // ============================================================================================================
         divideButton.setBounds(
                 operatorX,
@@ -282,14 +349,14 @@ public class Calculator {
             timer.setRepeats(false);
             timer.start();
 
-            firstNumber[0] = Double.parseDouble(display.getText());
+            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
             operator[0] = "/";
             startNewNumber[0] = true;
         });
         frame.add(divideButton);
 
         // ============================================================================================================
-        // 14. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE MULTIPLICAÇÃO
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO DE MULTIPLICAÇÃO
         // ============================================================================================================
         multButton.setBounds(
                 operatorX,
@@ -314,14 +381,14 @@ public class Calculator {
             timer.setRepeats(false);
             timer.start();
 
-            firstNumber[0] = Double.parseDouble(display.getText());
+            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
             operator[0] = "*";
             startNewNumber[0] = true;
         });
         frame.add(multButton);
 
         // ============================================================================================================
-        // 15. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE SUBTRAÇÃO
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO DE SUBTRAÇÃO
         // ============================================================================================================
         minusButton.setBounds(
                 operatorX,
@@ -346,14 +413,14 @@ public class Calculator {
             timer.setRepeats(false);
             timer.start();
 
-            firstNumber[0] = Double.parseDouble(display.getText());
+            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
             operator[0] = "-";
             startNewNumber[0] = true;
         });
         frame.add(minusButton);
 
         // ============================================================================================================
-        // 16. CONFIGURAÇÃO E LÓGICA DO BOTÃO DE SOMA
+        // CONFIGURAÇÃO E LÓGICA DO BOTÃO DE SOMA
         // ============================================================================================================
         plusButton.setBounds(
                 operatorX,
@@ -378,14 +445,14 @@ public class Calculator {
             timer.setRepeats(false);
             timer.start();
 
-            firstNumber[0] = Double.parseDouble(display.getText());
+            firstNumber[0] = Double.parseDouble(display.getText().replace(",", "."));
             operator[0] = "+";
             startNewNumber[0] = true;
         });
         frame.add(plusButton);
 
         // ============================================================================================================
-        // 17. EXIBIÇÃO FINAL DA JANELA
+        // EXIBIÇÃO FINAL DA JANELA
         // ============================================================================================================
         frame.setVisible(true);
     }
