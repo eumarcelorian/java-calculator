@@ -29,11 +29,7 @@ O projeto foi desenvolvido de forma incremental, começando com operações bás
 
 ## 🖼️ Interface
 
-Adicione aqui uma captura de tela da aplicação:
-
-```md
-
-```
+![Calculadora](calculator.png)
 
 ---
 
